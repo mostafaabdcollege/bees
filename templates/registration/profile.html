@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}Profile de : {{ user.username }} {% endblock %}
+
+{% block content %}
+<h1 class="mb-4 text text-center">Mon Profil {{ user.username }} </h1>
+
+<div class="d-flex align-items-center">
+    <!-- صورة الملف الشخصي -->
+    {% if user.profile.photo %}
+        <img src="{{ user.profile.photo.url }}" alt="Photo de profil" class="rounded-circle me-4" width="350">
+    {% else %}
+        <p>Aucune photo de profil</p>
+    {% endif %}
+
+    <!-- معلومات المستخدم -->
+    <div class="container">
+        <p><strong>Nom :</strong> {{ user.first_name }}</p>
+        <p><strong> Prénom :</strong> {{ user.last_name }}</p>
+        <p><strong> Niveau :</strong> {{ user.profile.level}}</p>
+        <p><strong>Email :</strong> {{ user.email }}</p>
+        <p><strong>Nom d'utilisateur :</strong> {{ user.username }}</p>
+        <p><strong>Type d'utilisateur :</strong> {{ user.profile.get_user_type_display }}</p>
+        <p><strong>Bio :</strong> {{ user.profile.bio }}</p>
+    </div>
+</div>
+<!-- رابط لتعديل الملف الشخصي -->
+<div class="text text-center">
+    <a href="{% url 'update_profile' %}" class="btn btn-primary mt-3 ">Modifier mon profil</a>
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+  <h2 class="mb-4 text-white text-center bg-dark p-3">Page d'interaction</h2>
+  
+  <!-- Affichage des messages -->
+  <div class="chat-box border p-3 mb-4 bg-dark text-white" style="height: 300px; overflow-y: scroll;">
+    {% for message in mes %}
+      <div class="mb-3">
+        <strong class="text-success">
+          <!-- Affichage de l'image de profil -->
+          <img src="{{ message.sender.profile.photo.url }}" alt="Photo de profil" class="rounded-circle" width="40" style="margin-left: 10px;">
+                {{ message.sender.username }}:
+        </strong>
+        <p class="text-white">{{ message.content }}</p>
+        <small class="text-white">{{ message.timestamp }}</small>
+      </div>
+    {% endfor %}
+  </div>
+
+  <!-- Formulaire pour envoyer un nouveau message -->
+  <form method="post">
+    {% csrf_token %}
+    <div class="mb-3">
+      <label for="receiver" class="form-label text-black">Choisissez le destinataire :</label>
+      <select class="form-select" name="receiver" id="receiver" required>
+        {% for user in users %}
+          {% if user != request.user %}
+            <option value="{{ user.id }}">{{ user.username }}</option>
+          {% endif %}
+        {% endfor %}
+      </select>
+    </div>
+    <div class="mb-3">
+      <label for="content" class="form-label text-black">Votre message :</label>
+      <textarea class="form-control" id="content" name="content" rows="3" required></textarea>
+    </div>
+    <button type="submit" class="btn btn-success">Envoyer</button>
+  </form>
+
+</div>
+
+{% endblock %}

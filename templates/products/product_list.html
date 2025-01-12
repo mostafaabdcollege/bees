@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1 class="mt-5">Les Produits</h1>
+    <div class="row g-4 justify-content-center">
+        {% for product in products %}
+        <div class="col-lg-4 col-md-6 mb-4 d-flex align-items-stretch">
+            <div class="card">
+                <img src="{{ product.image.url }}"  class="card-img-top" alt="{{ product.name }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ product.name }}</h5>
+                    <p class="card-text">{{ product.description|truncatewords:15 }}</p>
+                    <p><strong>{{ product.price }}€</strong></p>
+                    <a href="{% url 'product_detail' product.id %}" class="btn btn-info">Voir Détails</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock %}

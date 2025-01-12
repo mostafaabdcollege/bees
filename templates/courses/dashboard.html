@@ -1,0 +1,207 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container-fluid mt-5">
+    <div class="row">
+        <!-- Header du Dashboard -->
+        <div class="col-md-12">
+            <h1 class="text-center">Tableau de Bord</h1>
+            <p class="text-center text-muted">Bienvenue dans votre tableau de bord administratif.</p>
+        </div>
+    </div>
+
+    <!-- Ligne des statistiques -->
+    <div class="row">
+        <!-- Carte 1: Nombre d'Étudiants -->
+        <div class="col-md-3">
+            <div class="card text-white bg-primary mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">Nombre d'Étudiants</h5>
+                    <p class="card-text">{{ total_students }}</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Carte 2: Nombre de Professeurs -->
+        <div class="col-md-3">
+            <div class="card text-white bg-success mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">Nombre de Professeurs</h5>
+                    <p class="card-text">{{ total_teachers }}</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Carte 3: Nombre d'Admins -->
+        <div class="col-md-3">
+            <div class="card text-white bg-warning mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">Nombre d'Admins</h5>
+                    <p class="card-text">{{ total_admins }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Derniers Cours -->
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Derniers Cours Ajoutés</h2>
+            <ul>
+                {% for course in latest_courses %}
+                    <li>{{ course.title }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <!-- Autres sections du tableau de bord -->
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Exercices</h2>
+            <ul>
+                {% for exercise in exercises %}
+                    <li>{{ exercise.title }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+</div>
+
+<div class="container-fluid mt-5">
+    <div class="row">
+        <!-- Header du Dashboard -->
+        <div class="col-md-12">
+            <h1 class="text-center">Tableau de Bord</h1>
+            <p class="text-center text-muted">Bienvenue dans votre tableau de bord administratif.</p>
+        </div>
+    </div>
+
+    <!-- Ligne des statistiques -->
+    <div class="row">
+        <!-- Carte 1: Nombre de Cours -->
+        <div class="col-md-3">
+            <div class="card text-white bg-primary mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">Cours Totaux</h5>
+                    <p class="card-text">{{ courses.count }}</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Carte 2: Nombre d'Exercices -->
+        <div class="col-md-3">
+            <div class="card text-white bg-success mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">Exercices</h5>
+                    <p class="card-text">{{ exercises.count }}</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Carte 3: Nombre d'Étudiants -->
+        <div class="col-md-3">
+            <div class="card text-white bg-warning mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">Étudiants</h5>
+                    <p class="card-text">{{ user.profile.user_type }}</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Carte 4: Derniers Cours -->
+        <div class="col-md-3">
+            <div class="card text-white bg-info mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">Derniers Cours</h5>
+                    <p class="card-text">{{ latest_courses }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Ligne avec Graphiques ou autres informations -->
+    <div class="row">
+        <!-- Exemples de graphiques ou d'autres sections -->
+        <div class="col-md-6">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="card-title">Graphique des Cours</h5>
+                </div>
+                <div class="card-body">
+                    <canvas id="courseChart" width="100%" height="300px"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="card-title">Graphique des Exercices</h5>
+                </div>
+                <div class="card-body">
+                    <canvas id="exerciseChart" width="100%" height="300px"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lien vers une section plus détaillée -->
+    <div class="row">
+        <div class="col-md-12">
+            <a href="{% url 'course_list' %}" class="btn btn-outline-primary btn-lg">Voir tous les cours</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+<script>
+    // Graphique des Cours
+    var ctx = document.getElementById('courseChart').getContext('2d');
+    var courseChart = new Chart(ctx, {
+        type: 'bar', // Type de graphique
+        data: {
+            labels: ['Jan', 'Fév', 'Mar', 'Avr', 'Mai'], // Exemples de mois
+            datasets: [{
+                label: 'Nombre de Cours',
+                data: [10, 20, 15, 30, 25], // Remplacez par vos données
+                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+    // Graphique des Exercices
+    var ctx2 = document.getElementById('exerciseChart').getContext('2d');
+    var exerciseChart = new Chart(ctx2, {
+        type: 'line', // Type de graphique
+        data: {
+            labels: ['Jan', 'Fév', 'Mar', 'Avr', 'Mai'], // Exemples de mois
+            datasets: [{
+                label: 'Exercices Complétés',
+                data: [5, 15, 10, 25, 20], // Remplacez par vos données
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+</script>

@@ -1,0 +1,91 @@
+<nav class="navbar navbar-expand-lg bg-warning">
+    <div class="container">
+      <a class="navbar-brand" href="{% url 'home' %}">Abeilles</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample07" aria-controls="navbarsExample07" aria-expanded="false" aria-label="Basculer la navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+  
+      <div class="collapse navbar-collapse" id="navbarsExample07">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Accueil</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'course_list' %}">Informations</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'product_list' %}">Produits</a>
+          </li>
+          <!-- ghadi yat7ayad dropdown -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">Type de miel</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">3assal sadra</a></li>
+              <li><a class="dropdown-item" href="#">3assal l kaluptuss</a></li>
+              <li><a class="dropdown-item" href="#">La3ssal daghmoss</a></li>
+            </ul>
+          </li>
+        </ul>
+        <!-- Formulaire de recherche -->
+        <form method="get" action="{% url 'search' %}" class="d-flex ms-auto">
+          <input class="form-control me-2" type="search" name="q" placeholder="Rechercher" aria-label="Rechercher">
+          <button type="submit" class="btn btn-primary">Rechercher</button>
+        </form>
+      </div>
+  
+      <!-- Dropdown de l'utilisateur -->
+      <div class="dropdown">
+        <a class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+          {% if user.is_authenticated %}
+            <img src="{{ user.profile.photo.url }}" alt="" width="32" height="32" class="rounded-circle me-2">
+            <strong>{{ user.username }} -- {{ user.profile.user_type }}</strong>
+          {% endif %}
+        </a>
+        <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
+          <li><a class="dropdown-item" href="{% url 'profile' %}">Profil</a></li>
+          <li><hr class="dropdown-divider"></li>
+          {% if user.is_authenticated %}
+            <li class="dropdown-item">
+              <form method="post" action="{% url 'logout' %}" style="display: inline;">
+                {% csrf_token %}
+                <button type="submit" class="nav-link btn btn-link">Déconnexion</button>
+              </form>
+            </li>
+          {% else %}
+            <li class="dropdown-item">
+              <a class="nav-link btn btn-link" href="{% url 'login' %}">Connexion</a>
+            </li>
+            <li class="dropdown-item">
+              <a class="nav-link btn btn-link" href="{% url 'signup' %}">Inscription</a>
+            </li>
+          {% endif %}
+          {% if user.profile.user_type == 3 %}
+            <li class="dropdown-item">
+              <a class="nav-link" href="{% url 'chat_page' %}">Mes Messages</a>
+            </li>
+          {% elif user.profile.user_type == 2 %}
+            <li class="dropdown-item">
+              <a class="nav-link" href="{% url 'tableau_de_bord' %}">Gestion des cours</a>
+            </li>
+            <li class="dropdown-item">
+              <a class="nav-link" href="{% url 'chat_page' %}">Messages</a>
+            </li>
+          {% elif user.profile.user_type == 1 %}
+            <li class="dropdown-item">
+              <a class="nav-link" href="{% url 'admin_dashboard' %}">Liste des utilisateurs</a>
+            </li>
+            <li class="dropdown-item">
+              <a class="nav-link" href="{% url 'tableau_de_bord' %}">Gestion des cours</a>
+            </li>
+            <li class="dropdown-item">
+              <a class="nav-link" href="{% url 'dashboard' %}">Gestion des produits</a>
+            </li>
+            <li class="dropdown-item">
+              <a class="nav-link" href="{% url 'chat_page' %}">Messages</a>
+            </li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+  </nav>
+  

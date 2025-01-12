@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container-fluid">
+    <h1 class="my-4 text-center">Courses List</h1>
+    <div class="row g-4 justify-content-center">
+        {% for course in courses %}
+        <div class="col-md-4 d-flex align-items-stretch">
+            <div class="card h-100 d-flex flex-column">
+                <img src="{{ course.image.url }}" class="card-img-top" alt="{{ course.title }}" style="height: 300px; object-fit: cover;">
+                <div class="card-body flex-grow-1">
+                    <h5 class="card-title">{{ course.title }}</h5>
+                    <p class="card-text">{{ course.description|truncatewords:15 }}</p>
+                    <p><strong>Teacher:</strong> {{ course.teacher }}</p>
+                </div>
+                <div class="card-footer text-center">
+                    <a href="{% url 'course_detail' course.id %}" class="btn btn-primary btn-sm">View Details</a> 
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <p class="text-center">No courses available.</p>
+        {% endfor %}
+    </div>
+    <br>
+    <a href="{% url 'add_course' %}" class="btn btn-success mb-3 d-block mx-auto">Add New Course</a>
+
+    
+</div>
+{% endblock %}

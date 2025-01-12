@@ -1,0 +1,80 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %} Abeilles {% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'bootstrap1/css/bootstrap.min.css' %}">
+    <style>
+        body {
+            background-color: #f9f9f9;
+            font-family: Arial, sans-serif;
+        }
+        .hero-section {
+            background-image: url("{% static 'images/bees-banner.jpg' %}");
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 100px 0;
+            text-align: center;
+        }
+        .content-section {
+            padding: 40px 20px;
+        }
+        .content-section h2 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+        .content-section p {
+            font-size: 1.2rem;
+            text-align: justify;
+            color: #333;
+        }
+        .btn-custom {
+            background-color: #ffcc00;
+            color: #333;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .btn-custom:hover {
+            background-color: #e6b800;
+            color: white;
+        }
+    </style>
+</head>
+<body class="d-flex flex-column min-vh-100">
+
+    {% include 'parts/navbar.html' %}
+
+    <!-- Section Héros -->
+    <div class="hero-section">
+        <h1>Bienvenue dans le monde des Abeilles !</h1>
+        <p>Découvrez la fascinante vie des abeilles et leur impact sur notre monde.</p>
+    </div>
+
+    <!-- Section Contenu -->
+    <div class="content-section">
+        <h2>Pourquoi les abeilles sont-elles importantes ?</h2>
+        <p>Les abeilles sont des pollinisateurs incroyables, jouant un rôle crucial dans notre écosystème. Elles pollinisent les fleurs, les arbres et les cultures, permettant leur reproduction et maintenant la biodiversité qui soutient la vie. Sans les abeilles, notre monde manquerait de nombreux fruits, légumes et fleurs sur lesquels nous comptons pour la nourriture et la beauté. Ces insectes étonnants sont essentiels à la santé de notre planète.</p>
+
+        <h2>Comment pouvez-vous aider ?</h2>
+        <p>En soutenant les initiatives apicoles, en plantant des plantes favorables aux abeilles et en réduisant l'utilisation de pesticides, nous pouvons contribuer à la survie des abeilles. Rejoignez le mouvement et faites la différence dès aujourd'hui !</p>
+
+        <div class="text-center">
+            <a class="btn-custom" href="{% url 'product_list' %}">Découvrez nos produits à base de miel</a>
+            <br /><br />
+            <a class="btn-custom" href="{% url 'course_list' %}">Suivez un cours sur l'apiculture</a>
+            <br /><br />
+            <a class="btn-custom" href="{% url 'tableau_de_bord' %}">Rejoignez notre tableau de bord</a>
+        </div>
+    </div>
+
+    <script src="{% static 'bootstrap1/js/popper.min.js' %}"></script>
+    <script src="{% static 'bootstrap1/js/bootstrap.min.js' %}"></script>
+
+</body>
+</html>

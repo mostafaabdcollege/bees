@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>{{ course.title }}</h1>
+<img src="{{ course.image.url }}" alt="{{ course.title }}" width="100px" class="img-fluid">
+<p>{{ course.description }}</p>
+
+<h2>Video:</h2>
+<video width="100%" controls>
+    <source src="{{ course.video.url }}" type="video/mp4">
+    Your browser does not support the video tag.
+</video>
+
+<h3>Exercises</h3>
+{% for exercise in course.exercises.all %}
+<div class="exercise">
+    <p>{{ exercise.title }}</p>
+    <form action="{% url 'submit_answer' exercise.id %}" method="POST">
+    {% csrf_token %}
+    <input type="text" name="answer" />
+    <button type="submit" class="btn btn-secondary" >Submit</button>
+    </form>
+</div>
+{% endfor %}
+
+<a href="{% url 'course_list' %}" class="btn btn-secondary">Back to Courses</a>
+{% endblock %}

@@ -1,0 +1,129 @@
+{% extends 'base.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+  <div class="container-fluid">
+    <div class="row">
+        <!-- Colonne de gauche avec l'image -->
+        <div class="col-md-6 devisecontainer__left d-none d-md-block card">
+            <!-- Ajout de l'image -->
+            {% load static %}
+            <img src="{% static 'image/bee-image.jpg' %}" alt="Image de l'abeille" class="img-fluid full-height">
+        </div>
+        
+        <!-- Colonne de droite pour le formulaire de login -->
+        <div class="col-md-6 d-flex justify-content-center align-items-center">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-8">
+                        <div class="card shadow-sm border-light">
+                            <div class="card-header text-center">
+                                <h3>Se connecter</h3>
+                            </div>
+                            <div class="card-body">
+                                <form method="post">
+                                    {% csrf_token %}
+                                    <div class="form-group">
+                                      <label for="username">Nom d'utilisateur</label>
+                                      <input id="username" type="username" name="username" class="form-control" required>
+                                  </div>
+                                    <div class="form-group">
+                                        <label for="password">Mot de passe</label>
+                                        <input id="password" type="password" name="password" class="form-control" required>
+                                    </div>
+                                    <div class="form-group form-check">
+                                        <input type="checkbox" name="remember" id="remember" class="form-check-input">
+                                        <label class="form-check-label" for="remember">Se souvenir de moi</label>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary btn-block">Se connecter</button>
+                                    <a href="{% url 'password_reset' %}" class="btn btn-link">Avez-vous oublié votre mot de passe ?</a>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block styles %}
+    <style>
+        /* Design global de la page */
+        body {
+            width: 100%;cd
+            font-family: 'Arial', sans-serif;
+            background-color: #f7f7f7;
+            color: #333;
+        }
+
+        /* Image de l'abeille */
+        .full-height {
+            width: 100%;
+            height: 100vh;
+            object-fit: cover; /* Cela permet à l'image de couvrir tout l'espace sans déformation */
+        }
+
+        /* Style de la carte de connexion */
+        .card {
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-header {
+            background-color: #f8c312;
+            color: #fff;
+            font-size: 1.5rem;
+            padding: 20px;
+        }
+
+        .card-body {
+            background-color: #fff;
+            padding: 30px;
+        }
+
+        .btn-primary {
+            background-color: #f8c312;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1.1rem;
+        }
+
+        .btn-primary:hover {
+            background-color: #d19b08;
+        }
+
+        .btn-link {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .btn-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Zone de droite contenant le formulaire */
+        .col-md-6 {
+            padding: 0;
+        }
+
+        /* Espacement global */
+        .container-fluid {
+            padding: 0;
+        }
+
+        .form-control {
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            font-size: 1rem;
+        }
+
+        .form-group label {
+            font-weight: bold;
+        }
+    </style>
+{% endblock %}

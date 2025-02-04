@@ -5,13 +5,12 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.urls import reverse
 from accounts.models import Profile
-# عرض الدورات
+
 @login_required
 def course_list(request):
     courses = Course.objects.all()
     return render(request, 'courses/course_list.html', {'courses': courses})
 
-# إضافة تمرين
 @login_required
 def add_exercise(request, course_id):
     course = get_object_or_404(Course, id=course_id)
@@ -30,14 +29,13 @@ def add_exercise(request, course_id):
     messages.error(request, "You are not authorized to create exercises.")
     return redirect('course_list')
 
-# عرض تفاصيل الدورة بما في ذلك التمارين
 @login_required
 def course_detail(request, course_id):
     course = get_object_or_404(Course, id=course_id)
     exercises = Exercise.objects.filter(course=course)
     return render(request, 'courses/course_detail.html', {'course': course, 'exercises': exercises})
 
-# التقديم للتمرين
+
 @login_required
 def submit_answer(request, exercise_id):
     exercise = get_object_or_404(Exercise, id=exercise_id)
@@ -50,7 +48,6 @@ def submit_answer(request, exercise_id):
             messages.error(request, "Wrong answer. Try again!")
         return redirect(reverse('course_detail', kwargs={'course_id': course.id}))
 
-# إضافة دورة
 @login_required
 def add_course(request):
     if hasattr(request.user, 'profile') and request.user.profile.user_type in [1, 2]:
@@ -68,7 +65,7 @@ def add_course(request):
     messages.error(request, "You are not authorized to add courses.")
     return redirect('course_list')
 
-# تعديل دورة
+
 @login_required
 def edit_course(request, course_id):
     course = get_object_or_404(Course, id=course_id)
@@ -87,7 +84,7 @@ def edit_course(request, course_id):
 
     return render(request, 'courses/edit_course.html', {'form': form})
 
-# حذف دورة
+
 @login_required
 def delete_course(request, course_id):
     course = get_object_or_404(Course, id=course_id, teacher=request.user)
@@ -98,29 +95,25 @@ def delete_course(request, course_id):
     messages.error(request, "You are not authorized to delete this course.")
     return redirect('course_list')
 
-# عرض لوحة القيادة
 @login_required
 def tableau_de_bord(request):
     if hasattr(request.user, 'profile') and request.user.profile.user_type in [1, 2]:
         courses = Course.objects.prefetch_related('exercises').all()
         return render(request, 'courses/tableau_de_bord.html', {'courses': courses})
     return redirect('home')
-#dashboard
+
 @login_required
 def dashboard(request):
-    # جلب الدورات والتمارين
     courses = Course.objects.all()
     exercises = Exercise.objects.all()
 
-    # إظهار آخر 5 دورات
     latest_courses = courses[:5]
 
-    # حساب عدد المستخدمين حسب النوع
-    total_students = Profile.objects.filter(user_type=1).count()  # الطلاب
-    total_teachers = Profile.objects.filter(user_type=2).count()  # المدرسون
-    total_admins = Profile.objects.filter(user_type=3).count()  # الإداريون
+    total_students = Profile.objects.filter(user_type=1).count() 
+    total_teachers = Profile.objects.filter(user_type=2).count() 
+    total_admins = Profile.objects.filter(user_type=3).count()  
 
-    # تمرير البيانات إلى القالب
+
     return render(request, 'courses/dashboard.html', {
         'courses': courses,
         'exercises': exercises,

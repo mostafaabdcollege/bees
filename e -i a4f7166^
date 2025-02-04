@@ -1,0 +1,25 @@
+[33mcommit 40e07e91d319df9d0737160daac44e606bf9cad5[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m
+Author: ABDESSAMIEMOSTAFA <abdessamie.mostafa@taalim.ma>
+Date:   Sun Jan 12 23:32:50 2025 +0100
+
+    Remove db.sqlite3 from repository
+
+[33mcommit a4f7166982137d52a5ba422b4312a6bf17626d3b[m
+Author: ABDESSAMIEMOSTAFA <abdessamie.mostafa@taalim.ma>
+Date:   Sun Jan 12 23:30:27 2025 +0100
+
+    Add all project files
+
+[33mcommit 3d988ed4d7283a4b2a5b15cd439ee278d2b6cb06[m
+Author: ABDESSAMIEMOSTAFA <abdessamie.mostafa@taalim.ma>
+Date:   Sun Jan 12 23:22:36 2025 +0100
+
+    first commit
+
+[33mcommit fff18965c828431958b00cbcd2c80e6185945bd3[m
+Author: ABDESSAMIEMOSTAFA <abdessamie.mostafa@taalim.ma>
+Date:   Sun Jan 12 22:54:38 2025 +0100
+
+    first commit
+pick a4f7166 Add all project files
+pick 40e07e9 Remove db.sqlite3 from repository

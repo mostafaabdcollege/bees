@@ -4,19 +4,16 @@ from django.contrib import messages
 from .models import Product
 from .forms import ProductForm
 
-# عرض قائمة المنتجات
 @login_required
 def product_list(request):
     products = Product.objects.all()
     return render(request, 'products/product_list.html', {'products': products})
 
-# عرض تفاصيل المنتج
 @login_required
 def product_detail(request, product_id):
     product = get_object_or_404(Product, id=product_id)
     return render(request, 'products/product_detail.html', {'product': product})
 
-# إضافة منتج (مسموح فقط للمسؤولين)
 @login_required
 def add_product(request):
     if not request.user.is_superuser:
@@ -34,7 +31,6 @@ def add_product(request):
     
     return render(request, 'products/add_product.html', {'form': form})
 
-# تعديل منتج (مسموح فقط للمسؤولين)
 @login_required
 def edit_product(request, product_id):
     if not request.user.is_superuser:
@@ -54,7 +50,6 @@ def edit_product(request, product_id):
     
     return render(request, 'products/edit_product.html', {'form': form})
 
-# حذف منتج (مسموح فقط للمسؤولين)
 @login_required
 def delete_product(request, product_id):
     if not request.user.is_superuser:
@@ -69,23 +64,17 @@ def delete_product(request, product_id):
 
 @login_required
 def dashboard(request):
-    # إحصائيات المنتجات
     total_products = Product.objects.count()
-    latest_products = Product.objects.all().order_by('-created_at')[:5]  # آخر 5 منتجات مضافة
-    
-    # يمكن إضافة إحصائيات أخرى مثل المبيعات إذا كانت هناك موديلات خاصة بذلك
-
+    latest_products = Product.objects.all().order_by('-created_at')[:5] 
     return render(request, 'products/dashboard.html', {
         'total_products': total_products,
         'latest_products': latest_products,
     })
 
 def search(request):
-    query = request.GET.get('q', '')  # الحصول على الكلمة المدخلة في البحث
+    query = request.GET.get('q', '')
     if query:
-        # البحث عن المنتجات التي تحتوي على النص المدخل
         products = Product.objects.filter(name__icontains=query)
     else:
-        products = Product.objects.none()  # إذا لم تكن هناك كلمة للبحث عنها
-
+        products = Product.objects.none() 
     return render(request, 'products/search_results.html', {'products': products, 'query': query})

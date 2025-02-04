@@ -16,23 +16,17 @@
           <li class="nav-item">
             <a class="nav-link" href="{% url 'product_list' %}">Produits</a>
           </li>
-          <!-- ghadi yat7ayad dropdown -->
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">Type de miel</a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">3assal sadra</a></li>
-              <li><a class="dropdown-item" href="#">3assal l kaluptuss</a></li>
-              <li><a class="dropdown-item" href="#">La3ssal daghmoss</a></li>
-            </ul>
-          </li>
-        </ul>
+        
         <!-- Formulaire de recherche -->
         <form method="get" action="{% url 'search' %}" class="d-flex ms-auto">
           <input class="form-control me-2" type="search" name="q" placeholder="Rechercher" aria-label="Rechercher">
           <button type="submit" class="btn btn-primary">Rechercher</button>
         </form>
       </div>
-  
+      
+      <br>
+      <br>
+      
       <!-- Dropdown de l'utilisateur -->
       <div class="dropdown">
         <a class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
